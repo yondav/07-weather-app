@@ -5,20 +5,73 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Weather</title>
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+      integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
+      crossorigin="anonymous"
+    />
     <link rel="stylesheet" href="./assets/css/style.css" />
   </head>
+  <!-- toggle time of day class from js, maybe transition? -->
   <body>
-    <div class="location">
-      <h1 class="location-timezone">Time Zone</h1>
-      <p>icon</p>
+    <!-- header - scroll in js -->
+    <div class="wrapper night">
+      <header>
+        <nav>
+          <div class="search-cont">
+            <label id="searchIcon" for="location input"
+              ><i class="fas fa-search fa-xs"></i
+            ></label>
+            <input type="text" placeholder="zip code" class="location-input" />
+          </div>
+          <div class="deg-cont">
+            <label id="degIcon" for="Measurement"
+              ><i class="fas fa-thermometer-half fa-xs"></i
+            ></label>
+            <p id="degMeasurement">F&deg;</p>
+          </div>
+        </nav>
+      </header>
     </div>
-    <div class="temp">
-      <div class="degree-section">
-        <h2 class="temp-degree">34</h2>
-        <span>F</span>
-      </div>
-      <div class="temp-description">It's cold</div>
-    </div>
+    <main></main>
+    <!-- nav -->
+    <!-- input with search button for city or zip -->
+    <!-- cel/far switch -->
+    <!-- end nav -->
+    <!-- div for current location -->
+    <!-- current location -->
+    <!-- date/time -->
+    <!-- forcast icon -->
+    <!-- high and low -->
+    <!-- end div -->
+    <!-- end header -->
+
+    <!-- main -->
+    <!-- section.current card -->
+    <!-- div for weather icon -->
+    <!-- weather icon -->
+    <!-- end div -->
+    <!-- h1 with temp, span for far or cel -->
+    <!-- div for description -->
+    <!-- p for description e.g 'partly cloudy' -->
+    <!-- div for inline weather stats -->
+    <!-- p feels like -->
+    <!-- p humidity -->
+    <!-- p wind -->
+    <!-- p.uv index -->
+    <!-- end div -->
+    <!-- end div -->
+    <!-- end section -->
+    <!-- section.five-day -->
+    <!-- ****** five times the following div done dynamically in js ***** -->
+    <!-- div for day -->
+    <!-- p for day and date -->
+    <!-- weather icon -->
+    <!-- forecast -->
+    <!-- humidity -->
+    <!-- end div -->
+    <!-- end main -->
 
     <script src="./assets/js/app.js"></script>
   </body>

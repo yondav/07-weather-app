@@ -1,44 +1,100 @@
-* {
+@import url('https://fonts.googleapis.com/css2?family=PT+Serif:wght@400;700&family=Roboto&display=swap');
+
+:root {
+  --primary-light: #f5f5f5;
+  --primary-dark: #333333;
+  --backrgound-dark: rgba(51, 51, 51, 0.6);
+  --background-light: rgba(245, 245, 245, 0.6);
+
+  --title-text: 'PT Serif', serif;
+  --body-text: 'Roboto', sand-serif;
+}
+
+*,
+*::before,
+*::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: var(--fnt-primary);
 }
 
 body {
   height: 100vh;
+  font-family: var(--body-text);
+  font-size: 1rem;
+  color: var(--primary-light);
+}
+
+.wrapper {
+  min-width: 100vw;
+  min-height: 100vh;
+  transition: all 0.6s 0.2s ease-in-out;
+}
+
+/* time of day gradients */
+.night {
+  background: #28166b;
+  background: linear-gradient(to bottom, #28166b 0%, #45217c 100%);
+}
+
+.day {
+  background: #fda65a;
+  background: linear-gradient(to bottom, #fda65a 0%, #ffe467 100%);
+  transition: all 3s ease-in-out;
+}
+
+.sunset {
+  background: #f06b7e;
+  background: linear-gradient(to bottom, #f06b7e 0%, #f9a856 100%);
+}
+/**** navbar ****/
+nav {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background: linear-gradient(rgb(47, 150, 163), rgb(48, 62, 143));
-  font-family: sans-serif;
-  color: white;
+  justify-content: space-between;
+  padding: 0.3rem;
 }
 
-.location,
-.temp {
-  height: 30vh;
-  width: 50%;
+nav .search-cont {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
+  width: 35vw;
 }
 
-.temp {
-  flex-direction: column;
+nav label {
+  color: var(--primary-light);
 }
 
-.degree-section {
+.location-input {
+  max-width: 30vw;
+  flex-grow: 3;
+  font-size: 0.5rem;
+  color: var(--primary-light);
+  background: none;
+  border: none;
+  transition: all 0.5s ease-in-out;
+  transform: translate(-150%);
+}
+
+::placeholder {
+  font-size: 0.5rem;
+  color: var(--background-light);
+}
+
+/* toggle class in js for search bar */
+.show-input {
+  border-bottom: solid 1px var(--background-light);
+  transform: translate(0);
+}
+
+.deg-cont {
   display: flex;
-  align-items: center;
-  cursor: pointer;
+  justify-content: space-between;
+  align-items: baseline;
+  width: 7vw;
 }
 
-.degree-section span {
-  margin: 0.8rem;
-  font-size: 1.6rem;
-}
-
-.degree-section h2 {
-  font-size: 2.1rem;
+.deg-cont p {
+  font-size: 0.8rem;
 }
