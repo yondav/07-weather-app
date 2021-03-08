@@ -12,29 +12,37 @@ let lat;
 let long;
 let currentWeatherURL;
 
-let unit;
-
-// toggle farenheight/celcius
-degCont.addEventListener('click', function () {
-  if ((degMeasurement.textContent = `F${deg}`)) {
-    degMeasurement.textContent = `C${deg}`;
-  } else {
-    degMeasurement.textContent = `F${deg}`;
-  }
-});
-console.log(unit);
-
 window.addEventListener('DOMContentLoaded', function () {
   navigator.geolocation.getCurrentPosition(function (position) {
     let lat = position.coords.latitude.toString();
     let long = position.coords.longitude.toString();
     console.log(long, lat);
-    let currentWeatherF = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&units=imperial&appid=93fbb945657a5e5ca75650241870b021
+    let unit;
+
+    // toggle farenheight/celcius
+    degCont.addEventListener('click', function () {
+      if (degMeasurement.textContent == `F${deg}`) {
+        degMeasurement.textContent = `C${deg}`;
+        degMeasurement.setAttribute('data-unit', 'metric');
+      } else {
+        degMeasurement.textContent = `F${deg}`;
+        degMeasurement.setAttribute('data-unit', 'imperial');
+      }
+    });
+
+    if (degMeasurement.dataset.unit == 'imperial') {
+      unit = degMeasurement.dataset.unit;
+    } else if (degMeasurement.dataset.unit == 'metric') {
+      unit = degMeasurement.dataset.unit;
+    }
+    console.log(unit);
+
+    let currentWeather = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&units=${unit}&appid=93fbb945657a5e5ca75650241870b021
     `;
 
-    console.log(currentWeatherF);
+    console.log(currentWeather);
 
-    fetch(currentWeatherF).then(function (response) {
+    fetch(currentWeather).then(function (response) {
       return response.json().then(function (data) {
         console.log(data);
         let currentTempF = Math.floor(data.main.temp);

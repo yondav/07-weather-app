@@ -98,3 +98,7 @@ nav label {
 .deg-cont p {
   font-size: 0.8rem;
 }
+
+.hide {
+  display: none;
+}
