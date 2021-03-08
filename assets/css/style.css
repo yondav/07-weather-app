@@ -160,6 +160,37 @@ nav label {
   align-items: center;
 }
 
+/***** hourly weather *****/
+.hourly-card {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0.5rem;
+  padding: 0.5rem;
+  font-size: 0.8em;
+  border-radius: 20px;
+  background-color: var(--backrgound-dark);
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+
+  /* for scroll */
+  width: 100vw;
+  overflow-x: auto;
+  white-space: nowrap;
+  overflow-inline: scroll;
+}
+
+.hourlyTime-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.hourlyTime-card img {
+  width: 50px;
+}
+
 .hide {
   display: none;
 }
