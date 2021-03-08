@@ -3,6 +3,13 @@ const searchIcon = document.querySelector('#searchIcon');
 const locationInput = document.querySelector('input');
 const degContainer = document.querySelector('.deg-cont');
 const degMeasurement = document.querySelector('#degMeasurement');
+const currentTemp = document.querySelector('.currentTemp');
+const currentFeels = document.querySelector('.currentFeels');
+const currentHumidity = document.querySelector('.currentHumidity');
+const currentUV = document.querySelector('.currentUV');
+const currentDesc = document.querySelector('.currentDesc');
+const currentWind = document.querySelector('.currentWind');
+const currentIcon = document.querySelector('.currentIcon');
 
 let lat;
 let long;
@@ -19,25 +26,23 @@ window.addEventListener('DOMContentLoaded', function () {
     long = position.coords.longitude.toString();
     console.log(lat, long);
 
-    let currentWeatherURL = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${long}&units=${unit}&appid=93fbb945657a5e5ca75650241870b021`;
+    const currentWeatherURL = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${long}&units=${unit}&exclude=daily,hourly,minutely&appid=93fbb945657a5e5ca75650241870b021`;
 
     fetch(currentWeatherURL).then(function (response) {
       return response.json().then(function (data) {
         console.log(data);
         // add something for error code
-        let currentTemp = Math.floor(data.current.temp) + deg;
-        let currentFeelsLike = Math.floor(data.current.feels_like) + deg;
-        let currentHumidity = data.current.humidity + '%';
-        let currentUV = data.current.uvi.toString();
-        let currentDesc = data.current.weather;
-        let hourly = data.hourly; // 48 objects (arrays) hourly for 2 days. [7] in each hour's array is temp, [10] is weather
+        const iconCode = data.current.weather[0].icon;
+        const iconSource = `http://openweathermap.org/img/wn/${iconCode}@2x.png`;
 
-        console.log(currentTemp);
-        console.log(currentFeelsLike);
-        console.log(currentHumidity);
-        console.log(currentUV);
-        console.log(currentDesc);
-        console.log(hourly);
+        currentIcon.src = iconSource;
+        currentIcon.alt = data.current.weather[0].description;
+        currentTemp.textContent = Math.floor(data.current.temp) + deg;
+        currentDesc.textContent = data.current.weather[0].description;
+        currentWind.textContent = Math.floor(data.current.wind_speed) + 'mph';
+        currentHumidity.textContent = data.current.humidity + '%';
+        currentFeels.textContent = Math.floor(data.current.feels_like) + deg;
+        currentUV.textContent = data.current.uvi.toString();
       });
     });
   });
@@ -56,8 +61,8 @@ window.addEventListener('DOMContentLoaded', function () {
   });
 
   // date and time
-  let currentDate = moment().format('ddd MMMM DD' + ', ' + 'YYYY');
-  let currentTime = moment().format('LT');
+  const currentDate = moment().format('ddd MMMM DD' + ', ' + 'YYYY');
+  const currentTime = moment().format('LT');
   date.textContent = currentDate;
   time.textContent = currentTime;
 });

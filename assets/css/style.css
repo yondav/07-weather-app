@@ -3,8 +3,8 @@
 :root {
   --primary-light: #f5f5f5;
   --primary-dark: #333333;
-  --backrgound-dark: rgba(51, 51, 51, 0.6);
-  --background-light: rgba(245, 245, 245, 0.6);
+  --backrgound-dark: rgba(51, 51, 51, 0.5);
+  --background-light: rgba(245, 245, 245, 0.5);
 
   --title-text: 'PT Serif', serif;
   --body-text: 'Roboto', sand-serif;
@@ -27,6 +27,7 @@ body {
 }
 
 .wrapper {
+  position: absolute;
   min-width: 100vw;
   min-height: 100vh;
   transition: all 0.6s 0.2s ease-in-out;
@@ -48,11 +49,19 @@ body {
   background: #f06b7e;
   background: linear-gradient(to bottom, #f06b7e 0%, #f9a856 100%);
 }
+
+header {
+  margin: 0.5rem 0;
+}
 /**** navbar ****/
 nav {
   display: flex;
   justify-content: space-between;
-  padding: 0.3rem;
+  margin: 0.5rem;
+  padding: 0.5rem;
+  border-radius: 20px;
+  background-color: var(--backrgound-dark);
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
 }
 
 nav .search-cont {
@@ -97,6 +106,58 @@ nav label {
 
 .deg-cont p {
   font-size: 0.8rem;
+}
+
+/***** current weather *****/
+.primary-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  margin: 0.5rem;
+  padding: 0.5rem;
+  font-size: 0.8em;
+  border-radius: 20px;
+  background-color: var(--backrgound-dark);
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+}
+
+.date-time {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.current-wrap {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.card-side-left {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.card-center {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card-center h2 {
+  padding-bottom: 0.3rem;
+  font-size: 2em;
+}
+
+.card-side-right {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
 }
 
 .hide {
