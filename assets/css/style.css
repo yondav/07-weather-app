@@ -97,6 +97,10 @@ nav label {
   color: var(--background-light);
 }
 
+.location-input:focus {
+  outline: none;
+}
+
 /* toggle class in js for search bar */
 .show-input {
   border-bottom: solid 1px var(--background-light);

@@ -130,6 +130,7 @@ searchForm.addEventListener('submit', function (e) {
 // toggle search bar
 searchIcon.addEventListener('click', function () {
   locationInput.classList.toggle('show-input');
+  locationInput.focus();
 });
 
 // toggle farenheight/celcius and set data-unit attribute
