@@ -10,7 +10,8 @@ const currentUV = document.querySelector('.currentUV');
 const currentDesc = document.querySelector('.currentDesc');
 const currentWind = document.querySelector('.currentWind');
 const currentIcon = document.querySelector('.currentIcon');
-const mainHourly = document.querySelector('.hourly-card');
+const sectionHourly = document.querySelector('.hourly-card');
+const sectionDaily = document.querySelector('.daily');
 
 let lat;
 let long;
@@ -27,7 +28,7 @@ window.addEventListener('DOMContentLoaded', function () {
     long = position.coords.longitude.toString();
     console.log(lat, long);
 
-    const currentWeatherURL = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${long}&units=${unit}&exclude=daily,minutely&appid=93fbb945657a5e5ca75650241870b021`;
+    const currentWeatherURL = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${long}&units=${unit}&exclude=minutely&appid=93fbb945657a5e5ca75650241870b021`;
 
     fetch(currentWeatherURL).then(function (response) {
       return response.json().then(function (data) {
@@ -45,8 +46,7 @@ window.addEventListener('DOMContentLoaded', function () {
         currentFeels.textContent = Math.floor(data.current.feels_like) + deg;
         currentUV.textContent = data.current.uvi.toString();
 
-        // console log for 24 hours of the 48 given
-        console.log(data.hourly.slice(0, -24));
+        // hourly get specs and append
         let hourlyCard = data.hourly.slice(0, -24).map(function (item) {
           const hourlyTemp = Math.floor(item.temp) + deg;
           const hourlyIconCode = item.weather[0].icon;
@@ -62,7 +62,47 @@ window.addEventListener('DOMContentLoaded', function () {
             </div>`;
         });
         hourlyCard = hourlyCard.join('');
-        mainHourly.innerHTML = hourlyCard;
+        sectionHourly.innerHTML = hourlyCard;
+
+        let dailyCard = data.daily.map(function (item) {
+          const dailyTemp = Math.floor(item.temp.day) + deg;
+          const dailyHigh = Math.floor(item.temp.max) + deg;
+          const dailyLow = Math.floor(item.temp.min) + deg;
+          const dailyIconCode = item.weather[0].icon;
+          const dailyIconSource = `http://openweathermap.org/img/wn/${dailyIconCode}@2x.png`;
+          const dailyDesc = item.weather[0].description;
+          const dailyHumidity = item.humidity;
+          const dailyWind = item.wind_speed + '%';
+
+          return `<div class="daily-card">
+          <div class="card-center">
+            <h5 class="dailyDate">Mon, March 10</h5>
+            <img src="${dailyIconSource}" alt="${dailyDesc}" class="daily-icon">
+            <h3 class="dailyTemp">${dailyTemp}</h3>
+            <p class="dailyDesc">${dailyDesc}</p>
+          </div>
+
+          <div class="daily-inner-cont">
+            <div class="card-side-left">
+              <p>Humidity: <span class="dailyHumidity">${dailyHumidity}</span></p>
+              <p>Wind: <span class="dailyWind">${dailyWind}</span></p>
+            </div>
+
+            <div class="card-side-right">
+              <p>
+                <i class="fas fa-angle-up"></i>
+                <span class="high">${dailyHigh}</span>
+              </p>
+              <p>
+                <i class="fas fa-angle-down"></i>
+                <span class="low">${dailyLow}</span>
+              </p>
+            </div>
+          </div>
+        </div>`;
+        });
+        dailyCard = dailyCard.join('');
+        sectionDaily.innerHTML = dailyCard;
       });
     });
   });

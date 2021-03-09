@@ -20,17 +20,22 @@
 }
 
 body {
+  width: 100vw;
   height: 100vh;
   font-family: var(--body-text);
   font-size: 1rem;
   color: var(--primary-light);
+  transition: all 0.6s 0.2s ease-in-out;
 }
 
 .wrapper {
   position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  left: 0;
   min-width: 100vw;
   min-height: 100vh;
-  transition: all 0.6s 0.2s ease-in-out;
 }
 
 /* time of day gradients */
@@ -57,6 +62,7 @@ header {
 nav {
   display: flex;
   justify-content: space-between;
+  width: 90vw;
   margin: 0.5rem;
   padding: 0.5rem;
   border-radius: 20px;
@@ -101,7 +107,8 @@ nav label {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
-  width: 7vw;
+  width: 0.5rem;
+  margin-right: 0.5rem;
 }
 
 .deg-cont p {
@@ -113,6 +120,7 @@ nav label {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+  width: 90vw;
   margin: 0.5rem;
   padding: 0.5rem;
   font-size: 0.8em;
@@ -134,11 +142,11 @@ nav label {
   align-items: center;
 }
 
-.card-side-left {
+.card-side-left,
+.card-side-right {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
-  align-items: center;
 }
 
 .card-center {
@@ -148,16 +156,13 @@ nav label {
   align-items: center;
 }
 
+.currentIcon {
+  width: 25vw;
+}
+
 .card-center h2 {
   padding-bottom: 0.3rem;
   font-size: 2em;
-}
-
-.card-side-right {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  align-items: center;
 }
 
 /***** hourly weather *****/
@@ -174,10 +179,9 @@ nav label {
   box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
 
   /* for scroll */
-  width: 100vw;
+  width: 90vw;
   overflow-x: auto;
   white-space: nowrap;
-  overflow-inline: scroll;
 }
 
 .hourlyTime-card {
@@ -189,6 +193,41 @@ nav label {
 
 .hourlyTime-card img {
   width: 50px;
+}
+
+/***** Daily weather *****/
+.daily {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  /* for scroll */
+  width: 90vw;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+.daily-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0.5rem;
+  padding: 0.5rem;
+  font-size: 0.8em;
+  border-radius: 20px;
+  background-color: var(--backrgound-dark);
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+}
+
+.daily-inner-cont {
+  display: flex;
+}
+
+.daily-inner-cont .card-side-left,
+.daily-inner-cont .card-side-right {
+  margin: 1rem 0.5rem;
 }
 
 .hide {
