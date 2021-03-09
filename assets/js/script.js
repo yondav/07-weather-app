@@ -14,7 +14,9 @@ const degMeasurement = document.querySelector('#degMeasurement');
 const currentTemp = document.querySelector('.currentTemp');
 const currentFeels = document.querySelector('.currentFeels');
 const currentHumidity = document.querySelector('.currentHumidity');
-const currentUV = document.querySelector('.currentUV');
+const uvIndex = document.querySelector('.currentUV');
+const uvIcon = document.querySelector('#uvIcon');
+const uvKey = document.querySelector('#uvKey');
 const currentDesc = document.querySelector('.currentDesc');
 const currentWind = document.querySelector('.currentWind');
 const currentIcon = document.querySelector('.currentIcon');
@@ -37,6 +39,7 @@ function getWeather(lat, long) {
       // add something for error code
       const iconCode = data.current.weather[0].icon;
       const iconSource = `./assets/icons/${iconCode}.svg`;
+      const currentUV = data.current.uvi;
 
       console.log(data);
 
@@ -47,7 +50,36 @@ function getWeather(lat, long) {
       currentWind.textContent = Math.floor(data.current.wind_speed) + 'mph';
       currentHumidity.textContent = data.current.humidity + '%';
       currentFeels.textContent = Math.floor(data.current.feels_like) + deg;
-      currentUV.textContent = data.current.uvi.toString();
+      uvIndex.textContent = currentUV.toString();
+
+      console.log(currentUV);
+      // uv index color coding
+      if (currentUV < 3) {
+        uvIcon.innerHTML = `<i class="fas fa-chevron-down"></i>`;
+        uvIcon.style.color = '#9dfb98';
+        uvKey.textContent = 'low';
+        uvKey.style.color = '#9dfb98';
+      } else if (currentUV > 3 && currentUV < 6) {
+        uvIcon.innerHTML = `<i class="fas fa-window-minimize"></i>`;
+        uvIcon.style.color = '#6aced5';
+        uvKey.textContent = 'moderate';
+        uvKey.style.color = '#6aced5';
+      } else if (currentUV > 6 && currentUV < 8) {
+        uvIcon.innerHTML = `<i class="fas fa-chevron-up"></i>`;
+        uvIcon.style.color = '#d56a6a';
+        uvKey.textContent = 'high';
+        uvKey.style.color = '#d56a6a';
+      } else if (currentUV > 8 && currentUV < 11) {
+        uvIcon.innerHTML = `<i class="fas fa-chevron-up"></i><i class="fas fa-chevron-up"></i>`;
+        uvIcon.style.color = '#b64747';
+        uvKey.textContent = ' very high';
+        uvKey.style.color = '#b64747';
+      } else if (currentUV > 11) {
+        uvIcon.innerHTML = `<i class="fas fa-exclamation-triangle"></i>`;
+        uvIcon.style.color = '#cf3333';
+        uvKey.textContent = ' danger';
+        uvKey.style.color = '#cf3333';
+      }
 
       // hourly get specs and append
       let hourlyCard = data.hourly.slice(0, -24).map(function (item) {
@@ -167,12 +199,12 @@ window.addEventListener('DOMContentLoaded', function () {
 
 // background gradient based on time of day
 function backgroundGradient() {
-  const hour = moment().format('h');
-  if (hour === '6' || hour === '18') {
+  const hour = parseInt(moment().format('H'));
+  if (hour === 6 || hour === 18) {
     bgNight.classList.toggle('hide');
     bgSunset.classList.toggle('fadeIn');
     bgDay.classList.toggle('hide');
-  } else if (hour > '6' && hour < '18') {
+  } else if (hour > 6 && hour < 18) {
     bgNight.classList.toggle('hide');
     bgSunset.classList.toggle('hide');
     bgDay.classList.toggle('fadeIn');
@@ -181,4 +213,5 @@ function backgroundGradient() {
     bgSunset.classList.toggle('hide');
     bgDay.classList.toggle('hide');
   }
+  console.log(hour);
 }

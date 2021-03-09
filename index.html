@@ -14,10 +14,12 @@
     <link rel="stylesheet" href="./assets/css/style.css" />
   </head>
   <body>
+    <!-- background gradients -->
     <div class="day"></div>
     <div class="sunset"></div>
     <div class="night"></div>
     <div class="wrapper">
+      <!-- nav bar for search and unit toggle -->
       <header>
         <nav>
           <form>
@@ -41,7 +43,7 @@
           </div>
         </nav>
       </header>
-
+      <!-- current weather -->
       <section class="primary-card">
         <div class="date-time">
           <p id="date"></p>
@@ -52,21 +54,24 @@
             <p>Wind: <span class="currentWind"></span></p>
             <p>Humidity: <span class="currentHumidity"></span></p>
           </div>
-
           <div class="card-center">
             <img src="" alt="" class="currentIcon" />
             <h2 class="currentTemp"></h2>
             <p class="currentDesc"></p>
           </div>
-
           <div class="card-side-right">
             <p>Feels Like: <span class="currentFeels"></span></p>
-            <p>UVI: <span class="currentUV"></span></p>
+            <p>
+              UVI: <span class="currentUV"></span>
+              <span id="uvIcon"></span>
+              <span id="uvKey"></span>
+            </p>
           </div>
         </div>
       </section>
+      <!-- hourly card populate content dynamically -->
       <section class="hourly-card"></section>
-
+      <!-- daily card populate content dynamically -->
       <section class="daily"></section>
     </div>
 
