@@ -58,23 +58,12 @@ function getWeather(lat, long) {
         const hourlyDesc = item.weather[0].description;
 
         // get hour for hourly display
-        const hour = item.dt;
-
-        for (i = 0; i < 24; i++) {
-          const date = new Date(hour * 1000);
-          const hours = date.getHours();
-          const minutes = '0' + date.getMinutes();
-          const seconds = '0' + date.getSeconds();
-          const formattedTime =
-            hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
-
-          console.log(formattedTime);
-        }
-        console.log(hour);
+        const hourUnix = item.dt;
+        const hour = moment(hourUnix * 1000).format('ha');
 
         return `<div class="hourly-wrap">
             <div class="hourlyTime-card">
-              <h6 class="hourly">10AM</h6>
+              <h6 class="hourly">${hour}</h6>
               <img src="${hourlyIconSource}" alt="${hourlyDesc}" class="hourlyIcon">
               <h4 class="hourlytemp">${hourlyTemp}</h4>
             </div>
