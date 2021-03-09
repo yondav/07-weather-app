@@ -3,6 +3,7 @@ const deg = '\xB0';
 const currentDate = moment().format('ddd MMMM DD' + ', ' + 'YYYY');
 const currentTime = moment().format('LT');
 
+const searchForm = document.querySelector('form');
 const searchIcon = document.querySelector('#searchIcon');
 const locationInput = document.querySelector('input');
 const degContainer = document.querySelector('.deg-cont');
@@ -24,14 +25,7 @@ let unit = degMeasurement.dataset.unit;
 const date = document.querySelector('#date');
 const time = document.querySelector('#time');
 
-// get coordinates
-function getCoords() {
-  navigator.geolocation.getCurrentPosition(function (position) {
-    lat = position.coords.latitude.toString();
-    long = position.coords.longitude.toString();
-  });
-}
-
+// fetch call
 function getWeather(lat, long) {
   const currentWeatherURL = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${long}&units=${unit}&exclude=minutely&appid=93fbb945657a5e5ca75650241870b021`;
 
@@ -119,6 +113,20 @@ function getWeather(lat, long) {
   });
 }
 
+// get weather from search bar
+searchForm.addEventListener('submit', function (e) {
+  e.preventDefault();
+  let zipCode = locationInput.value;
+  const currentWeatherURL = `https://api.openweathermap.org/data/2.5/weather?zip=${zipCode},us&appid=93fbb945657a5e5ca75650241870b021`;
+
+  fetch(currentWeatherURL).then(function (response) {
+    return response.json().then(function (data) {
+      getWeather(data.coord.lat, data.coord.lon);
+      searchForm.reset();
+    });
+  });
+});
+
 // toggle search bar
 searchIcon.addEventListener('click', function () {
   locationInput.classList.toggle('show-input');
@@ -126,8 +134,6 @@ searchIcon.addEventListener('click', function () {
 
 // toggle farenheight/celcius and set data-unit attribute
 degContainer.addEventListener('click', function () {
-  // getCoords();
-  console.log(lat, long);
   if (degMeasurement.textContent == `F${deg}`) {
     degMeasurement.textContent = `C${deg}`;
     degMeasurement.setAttribute('data-unit', 'metric');
