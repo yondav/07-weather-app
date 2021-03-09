@@ -23,7 +23,7 @@ body {
   width: 100vw;
   height: 100vh;
   font-family: var(--body-text);
-  font-size: 1rem;
+  font-size: 1em;
   color: var(--primary-light);
   transition: all 0.6s 0.2s ease-in-out;
 }
@@ -84,7 +84,7 @@ nav label {
 .location-input {
   max-width: 30vw;
   flex-grow: 3;
-  font-size: 0.5rem;
+  font-size: 0.9em;
   color: var(--primary-light);
   background: none;
   border: none;
@@ -93,7 +93,7 @@ nav label {
 }
 
 ::placeholder {
-  font-size: 0.5rem;
+  font-size: 0.9em;
   color: var(--background-light);
 }
 
@@ -111,12 +111,12 @@ nav label {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
-  width: 0.5rem;
+  width: 30px;
   margin-right: 0.5rem;
 }
 
-.deg-cont p {
-  font-size: 0.8rem;
+.deg-cont span {
+  font-size: 1.2em;
 }
 
 /***** current weather *****/
@@ -127,7 +127,7 @@ nav label {
   width: 90vw;
   margin: 0.5rem;
   padding: 0.5rem;
-  font-size: 0.8em;
+  font-size: 0.9em;
   border-radius: 20px;
   background-color: var(--backrgound-dark);
   box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
@@ -166,7 +166,7 @@ nav label {
 
 .card-center h2 {
   padding-bottom: 0.3rem;
-  font-size: 2em;
+  font-size: 2.5em;
 }
 
 /***** hourly weather *****/
@@ -177,7 +177,6 @@ nav label {
   align-items: center;
   margin: 0.5rem;
   padding: 0.5rem;
-  font-size: 0.8em;
   border-radius: 20px;
   background-color: var(--backrgound-dark);
   box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
@@ -193,6 +192,8 @@ nav label {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin: 0.03rem 0.5rem;
+  padding: 0.3rem;
 }
 
 .hourlyTime-card img {
@@ -215,14 +216,19 @@ nav label {
 .daily-card {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
+  height: 28vh;
   margin: 0.5rem;
   padding: 0.5rem;
-  font-size: 0.8em;
+  font-size: 0.9em;
   border-radius: 20px;
   background-color: var(--backrgound-dark);
   box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+}
+
+.daily-card img {
+  width: 60%;
 }
 
 .daily-inner-cont {
@@ -236,4 +242,27 @@ nav label {
 
 .hide {
   display: none;
+}
+@media screen and (max-width: 375px) {
+  .daily-card {
+    height: 35vh;
+  }
+}
+
+@media screen and (min-width: 748px) {
+  body {
+    font-size: 1.4em;
+  }
+
+  .deg-cont {
+    width: 40px;
+  }
+
+  .card-center h2 {
+    font-size: 3.5em;
+  }
+
+  .daily-card {
+    height: 35vh;
+  }
 }

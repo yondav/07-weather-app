@@ -33,7 +33,7 @@ function getWeather(lat, long) {
     return response.json().then(function (data) {
       // add something for error code
       const iconCode = data.current.weather[0].icon;
-      const iconSource = `http://openweathermap.org/img/wn/${iconCode}@2x.png`;
+      const iconSource = `./assets/icons/${iconCode}.svg`;
 
       currentIcon.src = iconSource;
       currentIcon.alt = data.current.weather[0].description;
@@ -48,7 +48,7 @@ function getWeather(lat, long) {
       let hourlyCard = data.hourly.slice(0, -24).map(function (item) {
         const hourlyTemp = Math.floor(item.temp) + deg;
         const hourlyIconCode = item.weather[0].icon;
-        const hourlyIconSource = `http://openweathermap.org/img/wn/${hourlyIconCode}@2x.png`;
+        const hourlyIconSource = `./assets/icons/${hourlyIconCode}.svg`;
         const hourlyDesc = item.weather[0].description;
 
         // get hour for hourly display
@@ -71,7 +71,7 @@ function getWeather(lat, long) {
         const dailyHigh = Math.floor(item.temp.max) + deg;
         const dailyLow = Math.floor(item.temp.min) + deg;
         const dailyIconCode = item.weather[0].icon;
-        const dailyIconSource = `http://openweathermap.org/img/wn/${dailyIconCode}@2x.png`;
+        const dailyIconSource = `./assets/icons/${dailyIconCode}.svg`;
         const dailyDesc = item.weather[0].description;
         const dailyHumidity = item.humidity;
         const dailyWind = item.wind_speed + '%';
