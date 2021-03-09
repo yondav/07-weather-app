@@ -82,9 +82,13 @@ function getWeather(lat, long) {
         const dailyHumidity = item.humidity;
         const dailyWind = item.wind_speed + '%';
 
+        // get date for day display
+        const dateUnix = item.dt;
+        const date = moment(dateUnix * 1000).format('ddd, MMM DD');
+
         return `<div class="daily-card">
         <div class="card-center">
-          <h5 class="dailyDate">Mon, March 10</h5>
+          <h5 class="dailyDate">${date}</h5>
           <img src="${dailyIconSource}" alt="${dailyDesc}" class="daily-icon">
           <h3 class="dailyTemp">${dailyTemp}</h3>
           <p class="dailyDesc">${dailyDesc}</p>
