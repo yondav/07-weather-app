@@ -14,16 +14,24 @@
     <link rel="stylesheet" href="./assets/css/style.css" />
   </head>
   <body>
-    <div class="wrapper night">
+    <div class="day"></div>
+    <div class="sunset"></div>
+    <div class="night"></div>
+    <div class="wrapper">
       <header>
         <nav>
           <form>
-          <div class="search-cont">
-            <label id="searchIcon" for="location input"
-              ><i class="fas fa-search fa"></i
-            ></label>
-            <input type="tel" maxlength="5" placeholder="zip code" class="location-input" />
-          </div>
+            <div class="search-cont">
+              <label id="searchIcon" for="location input"
+                ><i class="fas fa-search fa"></i
+              ></label>
+              <input
+                type="tel"
+                maxlength="5"
+                placeholder="zip code"
+                class="location-input"
+              />
+            </div>
           </form>
           <div class="deg-cont">
             <label id="degIcon" for="Measurement"
@@ -46,13 +54,9 @@
           </div>
 
           <div class="card-center">
-          <img
-            src=""
-            alt=""
-            class="currentIcon"
-          />
-          <h2 class="currentTemp"></h2>
-          <p class="currentDesc"></p>
+            <img src="" alt="" class="currentIcon" />
+            <h2 class="currentTemp"></h2>
+            <p class="currentDesc"></p>
           </div>
 
           <div class="card-side-right">
@@ -61,13 +65,12 @@
           </div>
         </div>
       </section>
-      <section class="hourly-card">
-      </section>
+      <section class="hourly-card"></section>
 
-      <section class="daily"> 
-      </section>
+      <section class="daily"></section>
+    </div>
 
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
     <script src="./assets/js/script.js"></script>
   </body>
 </html>

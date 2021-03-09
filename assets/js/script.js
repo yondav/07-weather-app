@@ -3,6 +3,9 @@ const deg = '\xB0';
 const currentDate = moment().format('ddd MMMM DD' + ', ' + 'YYYY');
 const currentTime = moment().format('LT');
 
+const bgNight = document.querySelector('.night');
+const bgDay = document.querySelector('.day');
+const bgSunset = document.querySelector('.sunset');
 const searchForm = document.querySelector('form');
 const searchIcon = document.querySelector('#searchIcon');
 const locationInput = document.querySelector('input');
@@ -34,6 +37,8 @@ function getWeather(lat, long) {
       // add something for error code
       const iconCode = data.current.weather[0].icon;
       const iconSource = `./assets/icons/${iconCode}.svg`;
+
+      console.log(data);
 
       currentIcon.src = iconSource;
       currentIcon.alt = data.current.weather[0].description;
@@ -148,6 +153,7 @@ degContainer.addEventListener('click', function () {
 
 // when page loads, we are calling for the current weather data.
 window.addEventListener('DOMContentLoaded', function () {
+  backgroundGradient();
   // date and time
   date.textContent = currentDate;
   time.textContent = currentTime;
@@ -158,3 +164,21 @@ window.addEventListener('DOMContentLoaded', function () {
     getWeather(lat, long);
   });
 });
+
+// background gradient based on time of day
+function backgroundGradient() {
+  const hour = moment().format('h');
+  if (hour === '6' || hour === '18') {
+    bgNight.classList.toggle('hide');
+    bgSunset.classList.toggle('fadeIn');
+    bgDay.classList.toggle('hide');
+  } else if (hour > '6' && hour < '18') {
+    bgNight.classList.toggle('hide');
+    bgSunset.classList.toggle('hide');
+    bgDay.classList.toggle('fadeIn');
+  } else {
+    bgNight.classList.toggle('fadeIn');
+    bgSunset.classList.toggle('hide');
+    bgDay.classList.toggle('hide');
+  }
+}
