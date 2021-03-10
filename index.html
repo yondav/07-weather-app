@@ -89,6 +89,24 @@
       <section class="daily"></section>
     </div>
 
+    <!-- modal in case location is not available on load -->
+    <!-- modal -->
+    <div class="modal-overlay">
+      <div class="modal-container">
+        <h1>OOPS!</h1>
+        <h2>Looks like you're location is unavailable...</h2>
+        <h3>Zip code?</h3>
+        <form id="modalForm">
+          <input
+            type="tel"
+            maxlength="5"
+            placeholder="zip code"
+            class="modal-input"
+          />
+        </form>
+      </div>
+    </div>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
     <script src="./assets/js/script.js"></script>
   </body>

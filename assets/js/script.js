@@ -6,6 +6,10 @@ const currentTime = moment().format('LT');
 const bgNight = document.querySelector('.night');
 const bgDay = document.querySelector('.day');
 const bgSunset = document.querySelector('.sunset');
+
+const showModal = document.querySelector('.modal-overlay');
+const searchModal = document.querySelector('#modalForm');
+const modalInput = document.querySelector('.modal-input');
 const searchForm = document.querySelector('form');
 const searchIcon = document.querySelector('#searchIcon');
 const locationInput = document.querySelector('input');
@@ -33,14 +37,47 @@ let unit = degMeasurement.dataset.unit;
 const date = document.querySelector('#date');
 const time = document.querySelector('#time');
 
+function getLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(locationSuccess, locationFail);
+  } else {
+    locationFail();
+  }
+}
+
+function locationSuccess(position) {
+  //everything you're doing in your current callback
+  lat = position.coords.latitude.toString();
+  long = position.coords.longitude.toString();
+  console.log(position);
+  console.log(lat, long);
+  getWeather(lat, long);
+}
+
+function locationFail(error) {
+  //show the modal here. You might not really need to use the error param here, makes sense to me to just launch the modal regardless
+  showModal.classList.add('show-modal');
+  searchModal.addEventListener('submit', function (e) {
+    e.preventDefault();
+    let zipCode = modalInput.value;
+    const currentWeatherURL = `https://api.openweathermap.org/data/2.5/weather?zip=${zipCode},us&appid=93fbb945657a5e5ca75650241870b021`;
+
+    fetch(currentWeatherURL).then(function (response) {
+      return response.json().then(function (data) {
+        getWeather(data.coord.lat, data.coord.lon);
+        searchForm.reset();
+        showModal.classList.remove('show-modal');
+      });
+    });
+  });
+}
+
 // fetch call
 function getWeather(lat, long) {
   const currentWeatherURL = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${long}&units=${unit}&exclude=minutely&appid=93fbb945657a5e5ca75650241870b021`;
 
   fetch(currentWeatherURL).then(function (response) {
     return response.json().then(function (data) {
-      // add something for error code
-
       const iconCode = data.current.weather[0].icon;
       const iconSource = `./assets/icons/${iconCode}.svg`;
       const currentUV = data.current.uvi;
@@ -182,6 +219,7 @@ searchForm.addEventListener('submit', function (e) {
 
 // toggle search bar
 searchIcon.addEventListener('click', function () {
+  console.log('click');
   locationInput.classList.toggle('show-input');
   locationInput.focus();
 });
@@ -208,13 +246,14 @@ window.addEventListener('DOMContentLoaded', function () {
   date.textContent = currentDate;
   time.textContent = currentTime;
   // get coordinates
-  navigator.geolocation.getCurrentPosition(function (position) {
-    lat = position.coords.latitude.toString();
-    long = position.coords.longitude.toString();
-    console.log(position);
-    console.log(lat, long);
-    getWeather(lat, long);
-  });
+  // navigator.geolocation.getCurrentPosition(function (position) {
+  //   lat = position.coords.latitude.toString();
+  //   long = position.coords.longitude.toString();
+  //   console.log(position);
+  //   console.log(lat, long);
+  //   getWeather(lat, long);
+  // });
+  getLocation();
 });
 
 // background gradient based on time of day
