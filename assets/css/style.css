@@ -74,8 +74,8 @@ body {
   align-items: center;
   top: 0;
   left: 0;
-  min-width: 100vw;
-  min-height: 100vh;
+  min-width: 100%;
+  min-height: 100%;
 }
 
 header {
@@ -97,7 +97,6 @@ nav .search-cont {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 35vw;
 }
 
 nav label {
@@ -105,8 +104,7 @@ nav label {
 }
 
 .location-input {
-  max-width: 30vw;
-  flex-grow: 3;
+  margin-left: 0.6rem;
   font-size: 0.9em;
   color: var(--primary-light);
   background: none;
@@ -134,7 +132,7 @@ nav label {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
-  width: 30px;
+  width: 1.8rem;
   margin-right: 0.5rem;
 }
 
@@ -156,11 +154,22 @@ nav label {
   box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
 }
 
-.date-time {
+.day-location {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem;
+}
+
+.date-time,
+.location {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  align-items: center;
+}
+
+.location {
+  text-align: right;
 }
 
 .current-wrap {
@@ -184,7 +193,7 @@ nav label {
 }
 
 .currentIcon {
-  width: 25vw;
+  width: 75%;
 }
 
 .card-center h2 {
@@ -224,7 +233,7 @@ nav label {
 }
 
 .hourlyTime-card img {
-  width: 50px;
+  width: 100%;
 }
 
 /***** Daily weather *****/
@@ -245,7 +254,6 @@ nav label {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 28vh;
   margin: 0.5rem;
   padding: 0.5rem;
   font-size: 0.9em;
@@ -255,7 +263,7 @@ nav label {
 }
 
 .daily-card img {
-  width: 60%;
+  width: 12vw;
 }
 
 .daily-inner-cont {
@@ -267,29 +275,8 @@ nav label {
   margin: 1rem 0.5rem;
 }
 
-.hide {
-  display: none;
-}
-@media screen and (max-width: 375px) {
-  .daily-card {
-    height: 35vh;
-  }
-}
-
-@media screen and (min-width: 748px) {
-  body {
-    font-size: 1.4em;
-  }
-
-  .deg-cont {
-    width: 40px;
-  }
-
-  .card-center h2 {
-    font-size: 3.5em;
-  }
-
-  .daily-card {
-    height: 35vh;
+@media screen and (max-width: 400px) {
+  #uvKey {
+    display: none;
   }
 }
