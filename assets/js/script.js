@@ -10,6 +10,9 @@ const searchForm = document.querySelector('form');
 const searchIcon = document.querySelector('#searchIcon');
 const locationInput = document.querySelector('input');
 const degContainer = document.querySelector('.deg-cont');
+const degToggle = document.querySelector('#degToggle');
+const toggleF = document.querySelector('#toggleF');
+const toggleC = document.querySelector('#toggleC');
 const degMeasurement = document.querySelector('#degMeasurement');
 const currentTemp = document.querySelector('.currentTemp');
 const currentFeels = document.querySelector('.currentFeels');
@@ -37,6 +40,7 @@ function getWeather(lat, long) {
   fetch(currentWeatherURL).then(function (response) {
     return response.json().then(function (data) {
       // add something for error code
+
       const iconCode = data.current.weather[0].icon;
       const iconSource = `./assets/icons/${iconCode}.svg`;
       const currentUV = data.current.uvi;
@@ -183,13 +187,15 @@ searchIcon.addEventListener('click', function () {
 });
 
 // toggle farenheight/celcius and set data-unit attribute
-degContainer.addEventListener('click', function () {
-  if (degMeasurement.textContent == `F${deg}`) {
-    degMeasurement.textContent = `C${deg}`;
-    degMeasurement.setAttribute('data-unit', 'metric');
-  } else {
-    degMeasurement.textContent = `F${deg}`;
+degToggle.addEventListener('change', function () {
+  if (this.checked) {
     degMeasurement.setAttribute('data-unit', 'imperial');
+    toggleF.textContent = 'F' + deg;
+    toggleC.textContent = '';
+  } else {
+    degMeasurement.setAttribute('data-unit', 'metric');
+    toggleC.textContent = 'C' + deg;
+    toggleF.textContent = '';
   }
   unit = degMeasurement.getAttribute('data-unit');
   getWeather(lat, long);
@@ -205,6 +211,8 @@ window.addEventListener('DOMContentLoaded', function () {
   navigator.geolocation.getCurrentPosition(function (position) {
     lat = position.coords.latitude.toString();
     long = position.coords.longitude.toString();
+    console.log(position);
+    console.log(lat, long);
     getWeather(lat, long);
   });
 });

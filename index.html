@@ -36,10 +36,18 @@
             </div>
           </form>
           <div class="deg-cont">
-            <label id="degIcon" for="Measurement"
-              ><i class="fas fa-thermometer-half fa"></i
-            ></label>
-            <span id="degMeasurement" data-unit="imperial">F&deg;</span>
+            <!-- toggle switch -->
+            <label class="switch">
+              <input id="degToggle" type="checkbox" checked />
+              <span
+                id="degMeasurement"
+                class="slider round"
+                data-unit="imperial"
+              >
+                <span id="toggleF">F&deg;</span>
+                <span id="toggleC"></span>
+              </span>
+            </label>
           </div>
         </nav>
       </header>
