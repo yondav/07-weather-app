@@ -110,7 +110,7 @@ nav label {
   background: none;
   border: none;
   transition: all 0.5s ease-in-out;
-  transform: translate(-150%);
+  transform: translate(-160%);
 }
 
 ::placeholder {
@@ -126,6 +126,15 @@ nav label {
 .show-input {
   border-bottom: solid 1px var(--background-light);
   transform: translate(0);
+}
+
+.save {
+  margin-left: 0.3rem;
+  padding: 0.2rem;
+  color: var(--primary-dark);
+  border: solid 1px var(--primary-dark);
+  border-radius: 20px;
+  background-color: var(--background-light);
 }
 
 /* toggle class in js for search bar */
@@ -379,7 +388,7 @@ input:checked + .slider:before {
 }
 
 .modal-input {
-  width: 6rem;
+  width: 20rem;
   height: 2.3rem;
   padding: 0.5rem;
   text-align: center;
@@ -389,6 +398,10 @@ input:checked + .slider:before {
   border: solid 1px var(--backrgound-dark);
   border-radius: 20px;
   box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+}
+
+.modal-input::placeholder {
+  color: var(--backrgound-dark);
 }
 
 /* .modal-input ::placeholder {

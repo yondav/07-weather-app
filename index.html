@@ -28,11 +28,13 @@
                 ><i class="fas fa-search fa"></i
               ></label>
               <input
-                type="tel"
-                maxlength="5"
-                placeholder="zip code"
+                placeholder="search by city/zip code"
                 class="location-input"
               />
+              <div class="save">save search</div>
+            </div>
+            <div class="saved-cont">
+              <button class="clear-btn"></button>
             </div>
           </form>
           <div class="deg-cont">
@@ -61,6 +63,7 @@
           <div class="location">
             <p id="city"></p>
             <p id="state"></p>
+            <p id="country"></p>
           </div>
         </div>
         <div class="current-wrap">
@@ -95,14 +98,8 @@
       <div class="modal-container">
         <h1>OOPS!</h1>
         <h2>Looks like you're location is unavailable...</h2>
-        <h3>Zip code?</h3>
         <form id="modalForm">
-          <input
-            type="tel"
-            maxlength="5"
-            placeholder="zip code"
-            class="modal-input"
-          />
+          <input placeholder="search by city/zip code" class="modal-input" />
         </form>
       </div>
     </div>

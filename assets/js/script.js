@@ -29,6 +29,10 @@ const currentWind = document.querySelector('.currentWind');
 const currentIcon = document.querySelector('.currentIcon');
 const sectionHourly = document.querySelector('.hourly-card');
 const sectionDaily = document.querySelector('.daily');
+const weatherKey = '93fbb945657a5e5ca75650241870b021';
+const city = document.querySelector('#city');
+const state = document.querySelector('#state');
+const country = document.querySelector('#country');
 
 let lat;
 let long;
@@ -74,7 +78,7 @@ function locationFail(error) {
 
 // fetch call
 function getWeather(lat, long) {
-  const currentWeatherURL = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${long}&units=${unit}&exclude=minutely&appid=93fbb945657a5e5ca75650241870b021`;
+  const currentWeatherURL = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${long}&units=${unit}&exclude=minutely&appid=${weatherKey}`;
 
   fetch(currentWeatherURL).then(function (response) {
     return response.json().then(function (data) {
@@ -189,32 +193,51 @@ function getWeather(lat, long) {
       sectionDaily.innerHTML = dailyCard;
 
       // for location display
-      fetch(
-        `https://api.mapbox.com/geocoding/v5/mapbox.places/${long},${lat}.json?access_token=pk.eyJ1IjoieW9uZGF2IiwiYSI6ImNrbTMwdzVrcDFiOHEyb3FzMmZyM3BraTMifQ.WqR9QQOGPMezPeLCeRrelg`
-      ).then(function (response) {
-        return response.json().then(function (data) {
-          const city = document.querySelector('#city');
-          const state = document.querySelector('#state');
-          city.innerHTML = `${data.features[0].context[2].text},`;
-          state.innerHTML = `${data.features[0].context[5].text}`;
+      if (
+        city.textContent == '' &&
+        state.textContent == '' &&
+        country.textContent == ''
+      ) {
+        fetch(
+          `https://api.mapbox.com/geocoding/v5/mapbox.places/${lonData},${latData}.json?access_token=pk.eyJ1IjoieW9uZGF2IiwiYSI6ImNrbTMwdzVrcDFiOHEyb3FzMmZyM3BraTMifQ.WqR9QQOGPMezPeLCeRrelg`
+        ).then(function (response) {
+          return response.json().then(function (data) {
+            const dataCity = data.features[4].context[0].text;
+            const dataState = data.features[4].context[1].text;
+            const dataCountry = data.features[4].context[2].text;
+            city.innerHTML = `${dataCity},`;
+            state.innerHTML = `${dataState}`;
+            country.innerHTML = `${dataCountry}`;
+          });
         });
-      });
+      }
     });
   });
 }
 
-// get weather from search bar
+// get weather from search bar - use mapbox for query
+
 searchForm.addEventListener('submit', function (e) {
   e.preventDefault();
-  let zipCode = locationInput.value;
-  const currentWeatherURL = `https://api.openweathermap.org/data/2.5/weather?zip=${zipCode},us&appid=93fbb945657a5e5ca75650241870b021`;
+  const value = locationInput.value;
 
-  fetch(currentWeatherURL).then(function (response) {
+  fetch(
+    `https://api.mapbox.com/geocoding/v5/mapbox.places/${value}.json?access_token=pk.eyJ1IjoieW9uZGF2IiwiYSI6ImNrbTMwdzVrcDFiOHEyb3FzMmZyM3BraTMifQ.WqR9QQOGPMezPeLCeRrelg`
+  ).then(function (response) {
     return response.json().then(function (data) {
-      getWeather(data.coord.lat, data.coord.lon);
-      searchForm.reset();
+      const queryLat = data.features[0].geometry.coordinates[1];
+      const queryLong = data.features[0].geometry.coordinates[0];
+      console.log(data);
+
+      city.textContent = data.features[0].context[0].text;
+      state.textContent = data.features[0].context[1].text;
+      country.textContent = data.features[0].context[2].text;
+      console.log(data);
+      getWeather(queryLat, queryLong);
     });
   });
+
+  searchForm.reset();
 });
 
 // toggle search bar
