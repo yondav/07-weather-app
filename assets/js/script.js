@@ -36,6 +36,7 @@ const country = document.querySelector('#country');
 
 const savedCont = document.querySelector('.saved-cont');
 const savedSearch = document.querySelector('.saved-search');
+const savedCities = document.querySelectorAll('li');
 
 let lat;
 let long;
@@ -43,6 +44,61 @@ let unit = degMeasurement.dataset.unit;
 
 const date = document.querySelector('#date');
 const time = document.querySelector('#time');
+
+// when page loads, we are calling for the current weather data.
+window.addEventListener('DOMContentLoaded', function () {
+  backgroundGradient();
+  // date and time
+  date.textContent = currentDate;
+  time.textContent = currentTime;
+  getLocation();
+
+  appendLocalStorage();
+});
+
+// get weather from search bar - use mapbox for query
+searchForm.addEventListener('submit', function (e) {
+  e.preventDefault();
+  const value = locationInput.value;
+
+  fetch(
+    `https://api.mapbox.com/geocoding/v5/mapbox.places/${value}.json?access_token=pk.eyJ1IjoieW9uZGF2IiwiYSI6ImNrbTMwdzVrcDFiOHEyb3FzMmZyM3BraTMifQ.WqR9QQOGPMezPeLCeRrelg`
+  ).then(function (response) {
+    return response.json().then(function (data) {
+      const queryLat = data.features[0].geometry.coordinates[1];
+      const queryLong = data.features[0].geometry.coordinates[0];
+      const dataCity = data.features[0].context[0].text;
+      const dataState = data.features[0].context[1].text;
+      const dataCountry = data.features[0].context[2].text;
+
+      city.textContent = dataCity;
+      state.textContent = dataState;
+      country.textContent = dataCountry;
+      console.log(data);
+      getWeather(queryLat, queryLong);
+
+      // save to local storage
+      let savedValue = `${dataCity}, ${dataState}`;
+      let items = getLocalStorage();
+      items.push(savedValue);
+      localStorage.setItem('location', JSON.stringify(items));
+
+      searchForm.reset();
+    });
+  });
+});
+
+// toggle search bar
+searchIcon.addEventListener('click', function () {
+  console.log('click');
+  locationInput.classList.toggle('show-input');
+  locationInput.focus();
+  savedCont.classList.toggle('show-links');
+});
+
+savedCities.addEventListener('click', function (e) {
+  locationInput.textContent = e.target.value;
+});
 
 function getLocation() {
   if (navigator.geolocation) {
@@ -218,47 +274,6 @@ function getWeather(lat, long) {
   });
 }
 
-// get weather from search bar - use mapbox for query
-
-searchForm.addEventListener('submit', function (e) {
-  e.preventDefault();
-  const value = locationInput.value;
-
-  fetch(
-    `https://api.mapbox.com/geocoding/v5/mapbox.places/${value}.json?access_token=pk.eyJ1IjoieW9uZGF2IiwiYSI6ImNrbTMwdzVrcDFiOHEyb3FzMmZyM3BraTMifQ.WqR9QQOGPMezPeLCeRrelg`
-  ).then(function (response) {
-    return response.json().then(function (data) {
-      const queryLat = data.features[0].geometry.coordinates[1];
-      const queryLong = data.features[0].geometry.coordinates[0];
-      const dataCity = data.features[0].context[0].text;
-      const dataState = data.features[0].context[1].text;
-      const dataCountry = data.features[0].context[2].text;
-
-      city.textContent = dataCity;
-      state.textContent = dataState;
-      country.textContent = dataCountry;
-      console.log(data);
-      getWeather(queryLat, queryLong);
-
-      // save to local storage
-      let savedValue = `${dataCity}, ${dataState}`;
-      let items = getLocalStorage();
-      items.push(savedValue);
-      localStorage.setItem('location', JSON.stringify(items));
-
-      searchForm.reset();
-    });
-  });
-});
-
-// toggle search bar
-searchIcon.addEventListener('click', function () {
-  console.log('click');
-  locationInput.classList.toggle('show-input');
-  locationInput.focus();
-  savedCont.classList.toggle('show-links');
-});
-
 // toggle farenheight/celcius and set data-unit attribute
 degToggle.addEventListener('change', function () {
   if (this.checked) {
@@ -272,17 +287,6 @@ degToggle.addEventListener('change', function () {
   }
   unit = degMeasurement.getAttribute('data-unit');
   getWeather(lat, long);
-});
-
-// when page loads, we are calling for the current weather data.
-window.addEventListener('DOMContentLoaded', function () {
-  backgroundGradient();
-  // date and time
-  date.textContent = currentDate;
-  time.textContent = currentTime;
-  getLocation();
-
-  appendLocalStorage();
 });
 
 // background gradient based on time of day
@@ -314,7 +318,6 @@ function appendLocalStorage() {
   let items = getLocalStorage();
   for (i = 0; i < items.length; i++) {
     const savedLocation = document.createElement('li');
-    const savedCities = savedSearch.querySelectorAll('div');
     savedLocation.textContent = items[i];
     savedSearch.appendChild(savedLocation);
   }
