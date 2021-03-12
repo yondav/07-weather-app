@@ -218,21 +218,6 @@ function getWeather(lat, long) {
   });
 }
 
-function getLocalStorage() {
-  return localStorage.getItem('location')
-    ? JSON.parse(localStorage.getItem('location'))
-    : [];
-}
-
-function appendLocalStorage() {
-  let items = getLocalStorage();
-  for (i = 0; i < items.length; i++) {
-    const savedLocation = document.createElement('li');
-    savedLocation.textContent = items[i];
-    savedSearch.appendChild(savedLocation);
-  }
-}
-
 // get weather from search bar - use mapbox for query
 
 searchForm.addEventListener('submit', function (e) {
@@ -259,7 +244,7 @@ searchForm.addEventListener('submit', function (e) {
       let savedValue = `${dataCity}, ${dataState}`;
       let items = getLocalStorage();
       items.push(savedValue);
-      localStorage.setItem('location', JSON.stringify(savedValue));
+      localStorage.setItem('location', JSON.stringify(items));
 
       searchForm.reset();
     });
@@ -319,3 +304,18 @@ function backgroundGradient() {
 }
 
 // local storage
+function getLocalStorage() {
+  return localStorage.getItem('location')
+    ? JSON.parse(localStorage.getItem('location'))
+    : [];
+}
+
+function appendLocalStorage() {
+  let items = getLocalStorage();
+  for (i = 0; i < items.length; i++) {
+    const savedLocation = document.createElement('li');
+    const savedCities = savedSearch.querySelectorAll('div');
+    savedLocation.textContent = items[i];
+    savedSearch.appendChild(savedLocation);
+  }
+}

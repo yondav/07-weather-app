@@ -104,6 +104,8 @@ nav label {
 }
 
 .location-input {
+  position: relative;
+  left: -0.8rem;
   margin-left: 0.6rem;
   font-size: 0.9em;
   color: var(--primary-light);
@@ -128,36 +130,27 @@ nav label {
   transform: translate(0);
 }
 
-.save {
-  margin-left: 0.3rem;
-  padding: 0.2rem;
-  color: var(--primary-dark);
-  border: solid 1px var(--primary-dark);
-  border-radius: 20px;
-  background-color: var(--background-light);
-}
-
 .saved-cont {
+  /* width: 10rem; */
   height: 0;
-  margin-top: 0.3rem;
-  margin-left: 2rem;
   overflow: hidden;
   transition: all 0.3s linear;
 }
 
 .saved-search {
+  margin-top: 0.5rem;
+  margin-left: 1.5rem;
   list-style-type: none;
   font-size: 0.9em;
-  font-style: italic;
+  text-decoration: underline;
 }
 
-,
-saved-search li {
-  margin-top: 0.5rem;
+.saved-search li {
+  margin-top: 0.3rem;
 }
 
 .show-links {
-  height: 5rem;
+  height: 3rem;
   overflow: scroll;
 }
 
