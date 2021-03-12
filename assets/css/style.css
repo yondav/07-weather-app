@@ -137,6 +137,30 @@ nav label {
   background-color: var(--background-light);
 }
 
+.saved-cont {
+  height: 0;
+  margin-top: 0.3rem;
+  margin-left: 2rem;
+  overflow: hidden;
+  transition: all 0.3s linear;
+}
+
+.saved-search {
+  list-style-type: none;
+  font-size: 0.9em;
+  font-style: italic;
+}
+
+,
+saved-search li {
+  margin-top: 0.5rem;
+}
+
+.show-links {
+  height: 5rem;
+  overflow: scroll;
+}
+
 /* toggle class in js for search bar */
 .deg-cont {
   display: flex;

@@ -34,6 +34,9 @@ const city = document.querySelector('#city');
 const state = document.querySelector('#state');
 const country = document.querySelector('#country');
 
+const savedCont = document.querySelector('.saved-cont');
+const savedSearch = document.querySelector('.saved-search');
+
 let lat;
 let long;
 let unit = degMeasurement.dataset.unit;
@@ -215,6 +218,21 @@ function getWeather(lat, long) {
   });
 }
 
+function getLocalStorage() {
+  return localStorage.getItem('location')
+    ? JSON.parse(localStorage.getItem('location'))
+    : [];
+}
+
+function appendLocalStorage() {
+  let items = getLocalStorage();
+  for (i = 0; i < items.length; i++) {
+    const savedLocation = document.createElement('li');
+    savedLocation.textContent = items[i];
+    savedSearch.appendChild(savedLocation);
+  }
+}
+
 // get weather from search bar - use mapbox for query
 
 searchForm.addEventListener('submit', function (e) {
@@ -227,17 +245,25 @@ searchForm.addEventListener('submit', function (e) {
     return response.json().then(function (data) {
       const queryLat = data.features[0].geometry.coordinates[1];
       const queryLong = data.features[0].geometry.coordinates[0];
-      console.log(data);
+      const dataCity = data.features[0].context[0].text;
+      const dataState = data.features[0].context[1].text;
+      const dataCountry = data.features[0].context[2].text;
 
-      city.textContent = data.features[0].context[0].text;
-      state.textContent = data.features[0].context[1].text;
-      country.textContent = data.features[0].context[2].text;
+      city.textContent = dataCity;
+      state.textContent = dataState;
+      country.textContent = dataCountry;
       console.log(data);
       getWeather(queryLat, queryLong);
+
+      // save to local storage
+      let savedValue = `${dataCity}, ${dataState}`;
+      let items = getLocalStorage();
+      items.push(savedValue);
+      localStorage.setItem('location', JSON.stringify(savedValue));
+
+      searchForm.reset();
     });
   });
-
-  searchForm.reset();
 });
 
 // toggle search bar
@@ -245,6 +271,7 @@ searchIcon.addEventListener('click', function () {
   console.log('click');
   locationInput.classList.toggle('show-input');
   locationInput.focus();
+  savedCont.classList.toggle('show-links');
 });
 
 // toggle farenheight/celcius and set data-unit attribute
@@ -268,15 +295,9 @@ window.addEventListener('DOMContentLoaded', function () {
   // date and time
   date.textContent = currentDate;
   time.textContent = currentTime;
-  // get coordinates
-  // navigator.geolocation.getCurrentPosition(function (position) {
-  //   lat = position.coords.latitude.toString();
-  //   long = position.coords.longitude.toString();
-  //   console.log(position);
-  //   console.log(lat, long);
-  //   getWeather(lat, long);
-  // });
   getLocation();
+
+  appendLocalStorage();
 });
 
 // background gradient based on time of day
@@ -295,5 +316,6 @@ function backgroundGradient() {
     bgSunset.classList.toggle('hide');
     bgDay.classList.toggle('hide');
   }
-  console.log(hour);
 }
+
+// local storage
