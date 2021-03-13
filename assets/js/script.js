@@ -333,14 +333,6 @@ window.addEventListener('DOMContentLoaded', function () {
       : [];
   }
 
-  // function appendSearchedCity () {
-  //   const lastKey = window.localStorage.key(0)
-  //   const savedLocation = document.createElement('li');
-  //   // return localStorage.getItem(lastKey)
-  //   savedLocation.textContent = lastKey
-  //   savedSearch.appendChild(savedLocation)
-  // }
-
   function appendLocalStorage() {
     let items = getLocalStorage();
     for (let i = 0; i < items.length; i++) {
