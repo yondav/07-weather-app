@@ -264,13 +264,13 @@ window.addEventListener('DOMContentLoaded', function () {
         localStorage.setItem('location', JSON.stringify(items));
 
         let lastKey = getLocalStorage();
-        console.log(lastKey[lastKey.length - 1]);
         const savedLocation = document.createElement('li');
-        savedLocation.textContent = lastKey.length - 1;
+        savedLocation.textContent = lastKey[lastKey.length - 1];
         savedSearch.appendChild(savedLocation);
 
         if (savedCarrot.classList.contains('hide')) {
           savedCarrot.classList.remove('hide');
+          degToggle.focus();
         }
 
         searchForm.reset();
@@ -287,6 +287,9 @@ window.addEventListener('DOMContentLoaded', function () {
 
   // browse saved searches
   savedCarrot.addEventListener('click', function () {
+    if (savedCont.classList.contains('hide')) {
+      savedCont.classList.remove('hide');
+    }
     savedCont.classList.toggle('show-links');
   });
 
@@ -356,5 +359,8 @@ window.addEventListener('DOMContentLoaded', function () {
 
   clearBtn.addEventListener('click', function () {
     localStorage.clear();
+    savedSearch.innerHTML = '';
+    savedCont.classList.add('hide');
+    savedCarrot.classList.add('hide');
   });
 });
