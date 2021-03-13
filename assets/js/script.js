@@ -12,6 +12,7 @@ const searchModal = document.querySelector('#modalForm');
 const modalInput = document.querySelector('.modal-input');
 const searchForm = document.querySelector('form');
 const searchIcon = document.querySelector('#searchIcon');
+const inputCont = document.querySelector('.input-cont');
 const locationInput = document.querySelector('input');
 const degContainer = document.querySelector('.deg-cont');
 const degToggle = document.querySelector('#degToggle');
@@ -37,6 +38,8 @@ const country = document.querySelector('#country');
 const savedCont = document.querySelector('.saved-cont');
 const savedSearch = document.querySelector('.saved-search');
 const savedCities = document.querySelectorAll('li');
+const savedCarrot = document.querySelector('.saved-carrot');
+const clearBtn = document.querySelector('.clear-btn');
 
 let lat;
 let long;
@@ -53,7 +56,14 @@ window.addEventListener('DOMContentLoaded', function () {
   time.textContent = currentTime;
   getLocation();
 
-  appendLocalStorage();
+  if (window.localStorage.length > 0) {
+    savedCarrot.classList.remove('hide');
+    savedCont.classList.remove('hide');
+    appendLocalStorage();
+  } else {
+    savedCarrot.classList.add('hide');
+    savedCont.classList.add('hide');
+  }
 });
 
 // get weather from search bar - use mapbox for query
@@ -74,7 +84,6 @@ searchForm.addEventListener('submit', function (e) {
       city.textContent = dataCity;
       state.textContent = dataState;
       country.textContent = dataCountry;
-      console.log(data);
       getWeather(queryLat, queryLong);
 
       // save to local storage
@@ -90,16 +99,17 @@ searchForm.addEventListener('submit', function (e) {
 
 // toggle search bar
 searchIcon.addEventListener('click', function () {
-  console.log('click');
-  locationInput.classList.toggle('show-input');
+  inputCont.classList.toggle('show-input');
   locationInput.focus();
+  // savedCont.classList.add('show-links');
+});
+
+// browse saved searches
+savedCarrot.addEventListener('click', function () {
   savedCont.classList.toggle('show-links');
 });
 
-savedCities.addEventListener('click', function (e) {
-  locationInput.textContent = e.target.value;
-});
-
+// get coordinates
 function getLocation() {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(locationSuccess, locationFail);
@@ -108,15 +118,13 @@ function getLocation() {
   }
 }
 
+// function for startup if statement - success
 function locationSuccess(position) {
-  //everything you're doing in your current callback
   lat = position.coords.latitude.toString();
   long = position.coords.longitude.toString();
-  console.log(position);
-  console.log(lat, long);
   getWeather(lat, long);
 }
-
+// function for startup if statement - fail, opens modal
 function locationFail(error) {
   //show the modal here. You might not really need to use the error param here, makes sense to me to just launch the modal regardless
   showModal.classList.add('show-modal');
@@ -146,7 +154,6 @@ function getWeather(lat, long) {
       const currentUV = data.current.uvi;
       const latData = data.lat;
       const lonData = data.lon;
-      console.log(latData, lonData);
 
       currentIcon.src = iconSource;
       currentIcon.alt = data.current.weather[0].description;
@@ -316,9 +323,20 @@ function getLocalStorage() {
 
 function appendLocalStorage() {
   let items = getLocalStorage();
-  for (i = 0; i < items.length; i++) {
+  for (let i = 0; i < items.length; i++) {
     const savedLocation = document.createElement('li');
+    savedLocation.addEventListener('click', function () {
+      locationInput.value = items[i];
+      savedCont.classList.remove('show-links');
+      locationInput.focus();
+      savedCarrot.classList.remove('hide');
+      clearBtn.classList.remove('hide');
+    });
     savedLocation.textContent = items[i];
     savedSearch.appendChild(savedLocation);
   }
 }
+
+clearBtn.addEventListener('click', function () {
+  localStorage.clear();
+});

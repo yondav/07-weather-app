@@ -25,18 +25,23 @@
           <div class="search-col">
             <form>
               <div class="search-cont">
-                <label id="searchIcon" for="location input"
+                <label id="searchIcon" for="location-input"
                   ><i class="fas fa-search fa"></i
                 ></label>
-                <input
-                  placeholder="search by city/zip code"
-                  class="location-input"
-                />
+                <div class="input-cont">
+                  <input
+                    placeholder="search by city/zip code"
+                    class="location-input"
+                  />
+                  <i class="fas fa-caret-down saved-carrot hide"></i>
+                </div>
               </div>
             </form>
-            <div class="saved-cont">
+            <div class="saved-cont hide">
               <ul class="saved-search"></ul>
-              <button class="clear-btn"></button>
+              <div class="clear-btn">
+                <i class="fas fa-trash"></i> Clear History
+              </div>
             </div>
           </div>
           <div class="deg-cont">
