@@ -54,6 +54,8 @@ THEN I am again presented with current and future conditions for that city
 
 I wanted to challenge myself a bit to use an additional api and to use data points from the two to achieve a more robust weather app. I chose not to use a CSS framework for the layout and overall design though the icon libraries provided by - <a href="https://fontawesome.com//">Font Awesome</a> and <a href="https://erikflowers.github.io/weather-icons/">Erik Flowers</a> helped to complete the design.
 
+![lighthouse report](./assets/readme/lighthouse.jpg)
+
 ### Made with...
 
 - <a href="https://openweathermap.org/api">Open Weather Map API</a>
