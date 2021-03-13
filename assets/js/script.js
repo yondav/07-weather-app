@@ -264,10 +264,9 @@ window.addEventListener('DOMContentLoaded', function () {
         localStorage.setItem('location', JSON.stringify(items));
 
         let lastKey = getLocalStorage();
-        lastKey = lastKey.length - 1;
         console.log(lastKey[lastKey.length - 1]);
         const savedLocation = document.createElement('li');
-        savedLocation.textContent = lastKey;
+        savedLocation.textContent = lastKey.length - 1;
         savedSearch.appendChild(savedLocation);
 
         if (savedCarrot.classList.contains('hide')) {
